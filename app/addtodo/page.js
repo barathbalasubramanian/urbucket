@@ -19,7 +19,7 @@ const AddTodo = () => {
 
     const handleForm = async (e) => {
         e.preventDefault(); 
-    
+        if (title === "" && status === "" ) { return } 
         const todoData = {
             title,
             status
@@ -37,46 +37,55 @@ const AddTodo = () => {
             const data = await res.json()
             console.log(data.status);
 
+            setTitle('')
+            setStatus('');
+
         } catch (error) {
             console.error("Network or fetch error:", error.message);
         }
     };
     
     return (
-        <div>
-            <form onSubmit={handleForm}>
-                <label htmlFor="title">Title : </label>
-                <input 
-                    type="text" 
-                    placeholder="title" 
-                    value={title} 
-                    onChange={handleChange} 
-                    name="title" 
-                    className="text-rose-600 px-2"
-                />
-                <br />
-                <label htmlFor="status">Status</label>
-                <br />
-                <label>
+        <div className="flex flex-col items-center justify-center text-lg">
+            <form onSubmit={handleForm} className="flex flex-col justify-center w-100 min-h-screen gap-3">
+
+                <label htmlFor="title" aria-required className="text-blue-400">Title : </label>
+                <div>
                     <input 
-                        type="radio" 
-                        name="choice" 
-                        value="Completed" 
-                        checked={status === 'Completed'} 
+                        type="text" 
+                        placeholder="Title" 
+                        value={title} 
                         onChange={handleChange} 
-                    /> Completed
-                </label>
-                <label>
-                    <input 
-                        type="radio" 
-                        name="choice" 
-                        value="Not yet" 
-                        checked={status === 'Not yet'} 
-                        onChange={handleChange} 
-                    /> Not Yet
-                </label>
-                <br />
-                <button type="submit">Add</button>
+                        name="title" 
+                        className="text-blue-600 px-2 outline-none py-1 capitalize bg-inherit border-2 border-blue-300 mb-2" required
+                    />
+                </div>
+                <div>
+                    <label htmlFor="status" className="text-blue-400" >Status</label>
+                </div>
+                <div className="flex gap-4">
+                    <label>
+                        <input 
+                            type="radio" 
+                            name="choice" 
+                            value="Completed" 
+                            checked={status === 'Completed'} 
+                            onChange={handleChange} 
+                        /> Completed
+                    </label>
+                    <label>
+                        <input 
+                            type="radio" 
+                            name="choice" 
+                            value="Not yet" 
+                            checked={status === 'Not yet'} 
+                            onChange={handleChange} 
+                        /> Not Yet
+                    </label>
+                </div>
+                <div>
+                    <button type="submit" className="mt-3 text-blue-400 hover:scale-125 hover:text-blue-600 transition duration-400 ">Add</button>
+                </div>
             </form>
         </div>
     );

@@ -30,10 +30,10 @@ const TodoCard: React.FC = () => {
     }, []);
 
     return (
-        <div className='flex text-white flex-col gap-y-3 mx-5'>
+        <div className='flex text-white flex-col gap-y-3 mx-5 justify-center w-100 mt-10 text-left '>
             {
                 todos.map((todo) => (
-                    <div key={todo.id}>
+                    <div key={todo.id} >
                         {todo.title} - {todo.status}
                     </div>
                 ))
