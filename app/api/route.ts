@@ -17,14 +17,15 @@ export async function POST (req: NextRequest) {
     }
 
     data.todos.push(newTodo);
-    fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
+    // fs.writeFileSync(filePath, JSON.stringify(data, null, 2));
 
     const staticData = {
-        status: "Stored"
+        status: "Stored",
+        newTodo : newTodo
     };
 
     return NextResponse.json(staticData , { 
-        status:201
+        status:200
     })
 
 }

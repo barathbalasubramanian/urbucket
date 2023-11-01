@@ -34,8 +34,12 @@ const AddTodo = () => {
                 },
                 body: JSON.stringify(todoData)
             });
-            const data = await res.json()
-            console.log(data.status);
+            if (res.status === 200) {
+                const data = await res.json();
+                console.log(data.status);
+            } else {
+                console.error('Request failed with status:', res.status);
+            }
 
             setTitle('')
             setStatus('');
