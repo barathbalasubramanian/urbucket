@@ -2,6 +2,7 @@
 "use client";
 
 import React, { useState } from "react";
+import axios from "axios";
 
 const AddTodo = () => {
     const [title, setTitle] = useState('');
@@ -27,16 +28,25 @@ const AddTodo = () => {
     
         try {
 
-            const res = await fetch('/api', {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(todoData)
+            // const res = await fetch('/api', {
+            //     method: "POST",
+            //     headers: {
+            //         "Content-Type": "application/json"
+            //     },
+            //     body: JSON.stringify(todoData)
+            // });
+
+            const apiUrl = "http://127.0.0.1:3000/api";
+            const res = await axios.post(apiUrl, {
+                title:  todoData.title,
+                status: todoData.status
             });
+
             if (res.status === 200) {
-                const data = await res.json();
-                console.log(data.status);
+                console.log(res)
+                // const data = await res.json();
+                // console.log(data.status);
+                // console.log("Saved")
             } else {
                 console.error('Request failed with status:', res.status);
             }
